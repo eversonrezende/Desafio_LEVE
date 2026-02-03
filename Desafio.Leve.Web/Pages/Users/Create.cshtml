@@ -28,7 +28,8 @@
           <div class="uk-margin">
             <label class="uk-form-label" for="password">Senha *</label>
             <div class="uk-form-controls">
-              <input class="uk-input" id="password" asp-for="Password" type="password" placeholder="Mínimo 6 caracteres" />
+              <input class="uk-input" id="password" asp-for="Password" type="password"
+                placeholder="Mínimo 6 caracteres" />
               <span asp-validation-for="Password" class="uk-text-danger uk-text-small"></span>
             </div>
           </div>
@@ -39,7 +40,8 @@
               <select class="uk-select" id="role" asp-for="SelectedRole" asp-items="Model.Roles">
                 <option value="">-- Selecione --</option>
               </select>
-              <span class="uk-text-meta">Gestor pode criar usuários e tarefas. Subordinado apenas visualiza suas tarefas.</span>
+              <span class="uk-text-meta">Gestor pode criar usuários e tarefas. Subordinado apenas visualiza suas
+                tarefas.</span>
             </div>
           </div>
         </fieldset>
@@ -70,7 +72,8 @@
             <div class="uk-form-controls">
               <div uk-form-custom="target: true">
                 <input type="file" id="photo" asp-for="Photo" accept="image/*" />
-                <input class="uk-input" type="text" placeholder="Selecione uma imagem (JPG, PNG, GIF, BMP, WEBP - máx. 5MB)" disabled />
+                <input class="uk-input" type="text"
+                  placeholder="Selecione uma imagem (JPG, PNG, GIF, BMP, WEBP - máx. 5MB)" disabled />
               </div>
               <span class="uk-text-meta">Formatos aceitos: JPG, PNG, GIF, BMP, WEBP (máximo 5MB)</span>
             </div>
@@ -101,7 +104,8 @@
           <div class="uk-margin">
             <label class="uk-form-label" for="address">Endereço completo</label>
             <div class="uk-form-controls">
-              <textarea class="uk-textarea" id="address" asp-for="Address" rows="3" placeholder="Rua, número, complemento, bairro, cidade, estado"></textarea>
+              <textarea class="uk-textarea" id="address" asp-for="Address" rows="3"
+                placeholder="Rua, número, complemento, bairro, cidade, estado"></textarea>
               <span asp-validation-for="Address" class="uk-text-danger uk-text-small"></span>
             </div>
           </div>

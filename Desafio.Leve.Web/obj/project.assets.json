@@ -2096,19 +2096,6 @@
           }
         }
       },
-      "Desafio.Leve.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Desafio.Leve.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Desafio.Leve.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Desafio.Leve.Application.dll": {}
-        }
-      },
       "Desafio.Leve.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -5398,11 +5385,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Desafio.Leve.Application/1.0.0": {
-      "type": "project",
-      "path": "../Desafio.Leve.Application/Desafio.Leve.Application.csproj",
-      "msbuildProject": "../Desafio.Leve.Application/Desafio.Leve.Application.csproj"
-    },
     "Desafio.Leve.Domain/1.0.0": {
       "type": "project",
       "path": "../Desafio.Leve.Domain/Desafio.Leve.Domain.csproj",
@@ -5416,7 +5398,6 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Desafio.Leve.Application >= 1.0.0",
       "Desafio.Leve.Infrastructure >= 1.0.0",
       "MailKit >= 4.14.1",
       "Microsoft.AspNetCore.Identity.UI >= 8.0.11",
@@ -5448,9 +5429,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj": {
-              "projectPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj"
-            },
             "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Infrastructure\\Desafio.Leve.Infrastructure.csproj": {
               "projectPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Infrastructure\\Desafio.Leve.Infrastructure.csproj"
             }

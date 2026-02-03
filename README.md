@@ -1,6 +1,6 @@
 # Desafio LEVE - Sistema de Gestão de Tarefas
 
-Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pages, Identity, Entity Framework Core e MailKit.
+Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pages, Identity, Entity Framework Core, MailKit e UIKit CSS framework.
 
 ## 🚀 Funcionalidades Implementadas
 
@@ -9,25 +9,45 @@ Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pa
 - ✅ Autenticação via e-mail e senha (ASP.NET Core Identity)
 - ✅ Usuário gestor inicial seed: `ti@leveinvestimentos.com.br` / senha: `teste123`
 - ✅ Gestores podem criar novos usuários (Gestor ou Subordinado)
-- ✅ Campos de usuário: nome completo, e-mail, data de nascimento, telefones (fixo/móvel), endereço, foto
-- ✅ Upload de foto com validação (tipos: jpg, jpeg, png, gif, bmp, webp; tamanho máximo: 5MB)
-- ✅ Proteção contra path traversal e sanitização de nomes de arquivo
+- ✅ Campos de usuário completos: nome completo, e-mail, data de nascimento, telefones (fixo/móvel), endereço, foto
+- ✅ Upload de foto com validação robusta:
+  - Tipos permitidos: jpg, jpeg, png, gif, bmp, webp
+  - Tamanho máximo: 5MB
+  - Sanitização de nomes de arquivo com GUID único
+  - Proteção contra path traversal
+- ✅ Listagem de usuários com foto, dados de contato e data de nascimento
+- ✅ Página protegida por role (apenas Gestor pode criar/gerenciar usuários)
 
 ### Gestão de Tarefas
 
-- ✅ Gestores criam tarefas com título, descrição e data limite
+- ✅ Gestores criam tarefas com título, descrição e data/hora limite
 - ✅ Atribuição de tarefas a subordinados via dropdown
 - ✅ Subordinados podem marcar tarefas como concluídas
-- ✅ Visibilidade por role:
-  - **Gestor**: vê tarefas que criou ou atribuídas a si
+- ✅ Visibilidade baseada em role:
+  - **Gestor**: vê tarefas que criou ou foram atribuídas a si
   - **Subordinado**: vê apenas tarefas atribuídas a si
+- ✅ Filtros automáticos de tarefas por usuário e role
+- ✅ Status visual (Pendente/Concluída) com labels coloridos
 
 ### Notificações por E-mail
 
 - ✅ E-mail de boas-vindas ao criar usuário
-- ✅ E-mail ao atribuir tarefa ao subordinado
+- ✅ E-mail de notificação ao atribuir tarefa ao subordinado
 - ✅ E-mail ao gestor quando subordinado conclui tarefa
-- ✅ Logs de falha de envio de e-mail
+- ✅ Tratamento de erros com logging (falhas de e-mail não bloqueiam operações)
+- ✅ Integração com MailKit para SMTP confiável
+
+### Interface do Usuário (UIKit)
+
+- ✅ Framework CSS UIKit v3.21.6 integrado globalmente
+- ✅ Layout responsivo com navbar moderna
+- ✅ Dashboard com cards interativos e grid responsivo
+- ✅ Formulários organizados com fieldsets e ícones
+- ✅ Tabelas estilizadas com striped rows e hover effects
+- ✅ Labels e botões com ícones UIKit
+- ✅ Alertas e mensagens de feedback visual
+- ✅ Upload de foto customizado com UIKit form-custom
+- ✅ Design mobile-first e totalmente responsivo
 
 ## 🏗️ Arquitetura
 
@@ -35,9 +55,10 @@ Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pa
 Desafio.Leve.sln
 ├── Desafio.Leve.Web             # Razor Pages, UI, controllers
 ├── Desafio.Leve.Domain          # Modelos de domínio (TaskItem)
-├── Desafio.Leve.Application     # Lógica de aplicação (vazio por enquanto)
 └── Desafio.Leve.Infrastructure  # EF Core, Identity, serviços (Email)
 ```
+
+**Nota**: O projeto Application foi removido por não estar sendo utilizado. A lógica de aplicação está implementada diretamente nas Razor Pages e serviços da camada Infrastructure.
 
 ## 📋 Pré-requisitos
 
@@ -125,45 +146,191 @@ Acesse: http://localhost:5179
 - `MakeFullNameNullable` - FullName anulável
 - `MakeTaskUserIdsNullable` - IDs de usuário em tarefas anuláveis
 
-## 🧪 Testes Manuais
+## 🎨 Páginas e Recursos
 
-1. **Login**: acesse `/Identity/Account/Login` com o usuário gestor seed
-2. **Criar usuário**: `/Users/Create` (apenas gestor) - preencha todos os campos incluindo foto
-3. **Criar tarefa**: `/Tasks/Create` e atribua a um subordinado
-4. **Marcar como concluída**: login como subordinado → `/Tasks` → botão "Marcar como concluída"
-5. **Verificar e-mails**: confira inbox do subordinado (criação de tarefa) e do gestor (conclusão)
+### Dashboard (/)
+
+- Cards interativos com links rápidos para principais ações
+- Exibição de role do usuário logado (Gestor/Subordinado)
+- Grid responsivo (3 colunas em desktop, 1 em mobile)
+- Ícones UIKit para cada seção
+
+### Usuários (/Users)
+
+- **Index**: Tabela com foto circular, nome, email, telefones, data de nascimento
+- **Create**: Formulário completo organizado em 3 seções:
+  - **Acesso**: Email, senha, role
+  - **Pessoais**: Nome, data nascimento, foto
+  - **Contato**: Telefones (fixo/móvel), endereço
+  - Upload de foto customizado com UIKit form-custom
+  - Validação inline de todos os campos
+
+### Tarefas (/Tasks)
+
+- **Index**: Tabela com status visual (labels coloridas Pendente/Concluída)
+  - Filtros automáticos por role
+  - Botão "Concluir" para tarefas pendentes
+- **Create**: Formulário com:
+  - Título, descrição (textarea expandido), data/hora limite
+  - Dropdown de subordinados para atribuição
+  - Validação de campos obrigatórios
+
+## 🧪 Testes Manuais Recomendados
+
+### Fluxo Completo
+
+1. **Login como Gestor**
+   - Acesse `/Identity/Account/Login`
+   - Use: `ti@leveinvestimentos.com.br` / `teste123`
+
+2. **Criar Subordinado**
+   - Acesse `/Users/Create`
+   - Preencha todos os campos (incluindo foto)
+   - Selecione role "Subordinado"
+   - Verifique e-mail de boas-vindas
+
+3. **Criar Tarefa**
+   - Acesse `/Tasks/Create`
+   - Atribua ao subordinado criado
+   - Verifique e-mail de notificação do subordinado
+
+4. **Concluir Tarefa como Subordinado**
+   - Logout e login com o subordinado
+   - Acesse `/Tasks/Index`
+   - Clique em "Concluir" na tarefa
+   - Verifique e-mail do gestor sobre conclusão
+
+5. **Verificar Responsividade**
+   - Teste em mobile (menu hamburger)
+   - Redimensione janela para ver grid adaptativo
+   - Verifique tabelas responsivas
+
+### Testes de Segurança
+
+- Tente acessar `/Users/Create` como Subordinado (deve retornar Forbidden)
+- Upload de arquivo > 5MB (deve ser rejeitado com mensagem)
+- Upload de arquivo .exe ou .pdf (deve ser rejeitado)
+- Criar tarefa sem campos obrigatórios (validação inline deve impedir submit)
 
 ## 🛠️ Tecnologias
 
-- ASP.NET Core 8 (Razor Pages)
-- Entity Framework Core 8
-- ASP.NET Core Identity
-- SQL Server
-- MailKit (SMTP)
-- UIkit (CSS framework)
+- **Backend**: ASP.NET Core 8 (Razor Pages)
+- **ORM**: Entity Framework Core 8
+- **Autenticação**: ASP.NET Core Identity
+- **Banco de Dados**: SQL Server
+- **E-mail**: MailKit (SMTP)
+- **Front-end**: UIKit v3.21.6 (CSS framework via CDN)
+- **Validação**: Data Annotations + jQuery Validation
 
 ## 📝 Notas de Desenvolvimento
 
-- Uploads são salvos em `wwwroot/uploads/{userId}/`
-- Validação de upload: apenas imagens até 5MB
-- E-mails falhos são logados mas não bloqueiam operações
-- Roles criadas dinamicamente se não existirem
+### Armazenamento e Segurança
+
+- **Uploads**: Salvos em `wwwroot/uploads/{userId}/` com nome sanitizado (GUID + extensão)
+- **Validação de upload**:
+  - Whitelist de extensões permitidas (jpg, jpeg, png, gif, bmp, webp)
+  - Limite de 5MB por arquivo
+  - Verificação de path traversal
+  - Geração de nome único para evitar conflitos
+
+### E-mail e Logging
+
+- E-mails falhos são logados com `ILogger` mas não bloqueiam operações
+- Roles (Gestor/Subordinado) são criadas automaticamente na inicialização
+- Seed do usuário gestor ocorre automaticamente no startup
+
+### Interface e UX
+
+- UIKit framework via CDN para melhor performance
+- Ícones UIKit integrados em toda interface
+- Formulários organizados em fieldsets lógicos (Acesso, Pessoais, Contato)
+- Feedback visual com labels coloridos, alertas e estados hover
+- Navegação responsiva com menu mobile
+- Design consistente em todas as páginas
 - Validações client-side via `_ValidationScriptsPartial`
 
 ## 🚧 Melhorias Futuras
 
 - [ ] Editar perfil de usuário
 - [ ] Alterar senha
-- [ ] Dashboard com estatísticas
-- [ ] Filtros e busca de tarefas
-- [ ] Paginação
-- [ ] Testes unitários e integração
+- [ ] Dashboard com estatísticas de tarefas
+- [ ] Filtros avançados e busca de tarefas
+- [ ] Paginação nas listagens
+- [ ] Comentários em tarefas
+- [ ] Anexos em tarefas
+- [ ] Notificações em tempo real (SignalR)
+- [ ] Histórico de alterações
+- [ ] Testes unitários e de integração
 - [ ] Docker Compose para ambiente completo
+- [ ] CI/CD pipeline
+
+## 👨‍💻 Desenvolvimento
+
+### Estrutura de Diretórios
+
+```
+Desafio.Leve.Web/
+├── Pages/
+│   ├── Index.cshtml/cs              # Dashboard
+│   ├── Shared/
+│   │   ├── _Layout.cshtml           # Layout global com UIKit
+│   │   └── _LoginPartial.cshtml     # Menu de usuário
+│   ├── Tasks/
+│   │   ├── Index.cshtml/cs          # Lista de tarefas
+│   │   └── Create.cshtml/cs         # Criar tarefa
+│   └── Users/
+│       ├── Index.cshtml/cs          # Lista de usuários
+│       └── Create.cshtml/cs         # Criar usuário
+├── wwwroot/
+│   └── uploads/                     # Diretório de uploads
+│       └── {userId}/                # Fotos por usuário
+└── Program.cs                       # Configuração e startup
+
+Desafio.Leve.Infrastructure/
+├── Identity/
+│   └── ApplicationUser.cs           # Modelo customizado Identity
+├── Services/
+│   ├── IEmailSender.cs              # Interface de e-mail
+│   ├── EmailOptions.cs              # Configurações SMTP
+│   └── MailKitEmailSender.cs        # Implementação MailKit
+└── AppDbContext.cs                  # Contexto EF Core
+
+Desafio.Leve.Domain/
+└── Models/
+    └── TaskItem.cs                  # Entidade de tarefa
+```
+
+### Comandos Úteis
+
+```bash
+# Build
+dotnet build
+
+# Executar
+dotnet run --project Desafio.Leve.Web
+
+# Nova migration
+dotnet ef migrations add NomeDaMigration --project Desafio.Leve.Infrastructure --startup-project Desafio.Leve.Web
+
+# Aplicar migrations
+dotnet ef database update --project Desafio.Leve.Infrastructure --startup-project Desafio.Leve.Web
+
+# Listar migrations
+dotnet ef migrations list --project Desafio.Leve.Infrastructure --startup-project Desafio.Leve.Web
+
+# Remover última migration (se ainda não aplicada)
+dotnet ef migrations remove --project Desafio.Leve.Infrastructure --startup-project Desafio.Leve.Web
+```
 
 ## 📄 Licença
 
-Este projeto foi desenvolvido como parte de um desafio técnico.
+Este projeto foi desenvolvido como parte de um desafio técnico para demonstração de habilidades em:
 
-- Implementar as páginas Razor para login, cadastro/edição de usuários e gerenciamento de tarefas.
-- Implementar serviço de envio de e-mails e um worker para notificações.
-- Adicionar políticas de autorização (ex.: página de cadastro restrita a `Gestor`).
+- ASP.NET Core Razor Pages
+- Entity Framework Core e migrations
+- ASP.NET Core Identity com roles customizadas
+- Integração com serviços SMTP (MailKit)
+- Upload e validação de arquivos
+- UIKit CSS framework
+- Autorização baseada em roles
+- Boas práticas de segurança e logging

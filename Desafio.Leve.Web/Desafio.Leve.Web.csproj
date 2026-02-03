@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\Desafio.Leve.Application\Desafio.Leve.Application.csproj" />
     <ProjectReference Include="..\Desafio.Leve.Infrastructure\Desafio.Leve.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -66,10 +66,8 @@ D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\Sy
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Desafio.Leve.Application.dll
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Desafio.Leve.Domain.dll
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Desafio.Leve.Infrastructure.dll
-D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Desafio.Leve.Application.pdb
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Desafio.Leve.Infrastructure.pdb
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Desafio.Leve.Domain.pdb
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\obj\Debug\net8.0\Desafio.Leve.Web.csproj.AssemblyReference.cache
@@ -165,3 +163,4 @@ D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnal
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\Dev\Desafio_LEVE\Desafio.Leve.Web\obj\Debug\net8.0\Desafio.Leve.Web.MvcApplicationPartsAssemblyInfo.cs
+D:\Dev\Desafio_LEVE\Desafio.Leve.Web\obj\Debug\net8.0\Desafio.Leve.Web.sourcelink.json

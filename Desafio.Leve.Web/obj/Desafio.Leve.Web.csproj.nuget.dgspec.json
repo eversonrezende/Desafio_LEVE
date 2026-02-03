@@ -4,68 +4,6 @@
     "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Web\\Desafio.Leve.Web.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj",
-        "projectName": "Desafio.Leve.Application",
-        "projectPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj",
-        "packagesPath": "C:\\Users\\evers\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\evers\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Domain\\Desafio.Leve.Domain.csproj": {
-                "projectPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Domain\\Desafio.Leve.Domain.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Domain\\Desafio.Leve.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -232,9 +170,6 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj": {
-                "projectPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Application\\Desafio.Leve.Application.csproj"
-              },
               "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Infrastructure\\Desafio.Leve.Infrastructure.csproj": {
                 "projectPath": "D:\\Dev\\Desafio_LEVE\\Desafio.Leve.Infrastructure\\Desafio.Leve.Infrastructure.csproj"
               }

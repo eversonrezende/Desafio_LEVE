@@ -1,0 +1,15 @@
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\bin\Debug\net8.0\Desafio.Leve.Application.deps.json
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\bin\Debug\net8.0\Desafio.Leve.Application.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\bin\Debug\net8.0\Desafio.Leve.Application.pdb
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\bin\Debug\net8.0\Desafio.Leve.Domain.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\bin\Debug\net8.0\Desafio.Leve.Domain.pdb
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.csproj.AssemblyReference.cache
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.AssemblyInfoInputs.cache
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.AssemblyInfo.cs
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.csproj.CoreCompileInputs.cache
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio..735F42E4.Up2Date
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\refint\Desafio.Leve.Application.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\Desafio.Leve.Application.pdb
+D:\Dev\Desafio_LEVE\Desafio.Leve.Application\obj\Debug\net8.0\ref\Desafio.Leve.Application.dll

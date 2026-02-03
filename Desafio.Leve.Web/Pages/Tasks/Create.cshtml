@@ -1,0 +1,72 @@
+@page
+@model Desafio.Leve.Web.Pages.Tasks.CreateModel
+@{
+  ViewData["Title"] = "Criar Tarefa";
+}
+
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-small">
+    <div class="uk-card uk-card-default uk-card-body">
+      <h1 class="uk-card-title uk-heading-medium">
+        <span uk-icon="icon: plus-circle; ratio: 1.5"></span> Criar Tarefa
+      </h1>
+
+      <form method="post" class="uk-form-stacked">
+        <div class="uk-margin">
+          <label class="uk-form-label" for="title">
+            <span uk-icon="icon: tag; ratio: 0.9"></span> Título
+          </label>
+          <div class="uk-form-controls">
+            <input class="uk-input" id="title" asp-for="TaskItem.Title" placeholder="Digite o título da tarefa" />
+            <span asp-validation-for="TaskItem.Title" class="uk-text-danger uk-text-small"></span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <label class="uk-form-label" for="description">
+            <span uk-icon="icon: file-text; ratio: 0.9"></span> Descrição
+          </label>
+          <div class="uk-form-controls">
+            <textarea class="uk-textarea" id="description" rows="5" asp-for="TaskItem.Description" placeholder="Descreva a tarefa detalhadamente"></textarea>
+            <span asp-validation-for="TaskItem.Description" class="uk-text-danger uk-text-small"></span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <label class="uk-form-label" for="duedate">
+            <span uk-icon="icon: calendar; ratio: 0.9"></span> Data e Hora Limite
+          </label>
+          <div class="uk-form-controls">
+            <input class="uk-input" id="duedate" type="datetime-local" asp-for="TaskItem.DueDate" />
+            <span asp-validation-for="TaskItem.DueDate" class="uk-text-danger uk-text-small"></span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <label class="uk-form-label" for="assigned">
+            <span uk-icon="icon: user; ratio: 0.9"></span> Atribuir a (usuário)
+          </label>
+          <div class="uk-form-controls">
+            <select class="uk-select" id="assigned" asp-for="TaskItem.AssignedToUserId" asp-items="Model.UsersSelect">
+              <option value="">-- Selecione um usuário --</option>
+            </select>
+            <span class="uk-text-meta">Escolha o responsável pela tarefa</span>
+          </div>
+        </div>
+
+        <div class="uk-margin-medium-top">
+          <button class="uk-button uk-button-primary" type="submit">
+            <span uk-icon="icon: check; ratio: 0.9"></span> Criar Tarefa
+          </button>
+          <a class="uk-button uk-button-default" href="/Tasks/Index">
+            <span uk-icon="icon: close; ratio: 0.9"></span> Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

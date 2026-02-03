@@ -1,0 +1,90 @@
+@page
+@model Desafio.Leve.Web.Pages.Tasks.IndexModel
+@{
+  ViewData["Title"] = "Tarefas";
+}
+
+<div class="uk-section uk-section-default">
+  <div class="uk-container">
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
+      <h1 class="uk-heading-medium">
+        <span uk-icon="icon: list; ratio: 1.5"></span> Tarefas
+      </h1>
+      @if (User.IsInRole("Gestor"))
+      {
+        <a class="uk-button uk-button-primary" href="/Tasks/Create">
+          <span uk-icon="plus"></span> Nova Tarefa
+        </a>
+      }
+    </div>
+
+    @if (!Model.Tasks.Any())
+    {
+      <div class="uk-alert-warning" uk-alert>
+        <p><span uk-icon="icon: info"></span> Nenhuma tarefa encontrada.</p>
+      </div>
+    }
+    else
+    {
+      <div class="uk-card uk-card-default uk-card-body">
+        <table class="uk-table uk-table-striped uk-table-hover uk-table-divider">
+          <thead>
+            <tr>
+              <th class="uk-table-shrink">Status</th>
+              <th>Título</th>
+              <th>Descrição</th>
+              <th>Prazo</th>
+              <th>Criada em</th>
+              <th>Responsável</th>
+              <th class="uk-text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var t in Model.Tasks)
+            {
+              <tr>
+                <td>
+                  @if (t.IsCompleted)
+                  {
+                    <span class="uk-label uk-label-success">
+                      <span uk-icon="icon: check; ratio: 0.8"></span> Concluída
+                    </span>
+                  }
+                  else
+                  {
+                    <span class="uk-label uk-label-warning">
+                      <span uk-icon="icon: clock; ratio: 0.8"></span> Pendente
+                    </span>
+                  }
+                </td>
+                <td><strong>@t.Title</strong></td>
+                <td>@t.Description</td>
+                <td>
+                  <span uk-icon="icon: calendar; ratio: 0.8"></span>
+                  @t.DueDate.ToString("dd/MM/yyyy HH:mm")
+                </td>
+                <td>@t.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@t.AssignedToUserId</td>
+                <td class="uk-text-center">
+                  @if (!t.IsCompleted && User.Identity.IsAuthenticated)
+                  {
+                    <form method="post" asp-page-handler="Complete" class="uk-display-inline">
+                      <input type="hidden" name="id" value="@t.Id" />
+                      <button class="uk-button uk-button-small uk-button-primary" type="submit">
+                        <span uk-icon="icon: check; ratio: 0.8"></span> Concluir
+                      </button>
+                    </form>
+                  }
+                  else
+                  {
+                    <span class="uk-text-muted">—</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

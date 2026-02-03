@@ -1,0 +1,15 @@
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.csproj.AssemblyReference.cache
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.AssemblyInfoInputs.cache
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.AssemblyInfo.cs
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\bin\Debug\net8.0\Desafio.Leve.Infrastructure.deps.json
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\bin\Debug\net8.0\Desafio.Leve.Infrastructure.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\bin\Debug\net8.0\Desafio.Leve.Infrastructure.pdb
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\bin\Debug\net8.0\Desafio.Leve.Domain.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\bin\Debug\net8.0\Desafio.Leve.Domain.pdb
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio..34EE8B08.Up2Date
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\refint\Desafio.Leve.Infrastructure.dll
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\Desafio.Leve.Infrastructure.pdb
+D:\Dev\Desafio_LEVE\Desafio.Leve.Infrastructure\obj\Debug\net8.0\ref\Desafio.Leve.Infrastructure.dll

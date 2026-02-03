@@ -1,0 +1,20 @@
+@using Desafio.Leve.Infrastructure.Identity
+@inject Microsoft.AspNetCore.Identity.SignInManager<Desafio.Leve.Infrastructure.Identity.ApplicationUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<Desafio.Leve.Infrastructure.Identity.ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="uk-navbar-item">
+        <span class="uk-text-muted">Olá, @User.Identity.Name</span>
+        <form class="uk-display-inline" asp-area="Identity" asp-page="/Account/Logout" method="post">
+            <button type="submit" class="uk-button uk-button-text">Logout</button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="uk-navbar-item">
+        <a class="uk-button uk-button-default uk-button-small" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="uk-button uk-button-link uk-button-small" asp-area="Identity" asp-page="/Account/Register">Registrar</a>
+    </div>
+}

@@ -1,0 +1,95 @@
+@page
+@model Desafio.Leve.Web.Pages.Users.IndexModel
+@{
+  ViewData["Title"] = "Usuários";
+}
+
+<div class="uk-section uk-section-default">
+  <div class="uk-container">
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
+      <h1 class="uk-heading-medium">
+        <span uk-icon="icon: users; ratio: 1.5"></span> Usuários
+      </h1>
+      <a class="uk-button uk-button-primary" asp-page="Create">
+        <span uk-icon="plus"></span> Novo Usuário
+      </a>
+    </div>
+
+    @if (!Model.Users.Any())
+    {
+      <div class="uk-alert-warning" uk-alert>
+        <p><span uk-icon="icon: info"></span> Nenhum usuário encontrado.</p>
+      </div>
+    }
+    else
+    {
+      <div class="uk-card uk-card-default uk-card-body">
+        <table class="uk-table uk-table-striped uk-table-hover uk-table-divider uk-table-responsive">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Data Nascimento</th>
+              <th class="uk-text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var u in Model.Users)
+            {
+              <tr>
+                <td>
+                  @if (!string.IsNullOrEmpty(u.PhotoPath))
+                  {
+                    <img src="@u.PhotoPath" alt="Foto" class="uk-border-circle" width="40" height="40" />
+                  }
+                  else
+                  {
+                    <span uk-icon="icon: user; ratio: 1.5" class="uk-text-muted"></span>
+                  }
+                </td>
+                <td><strong>@u.FullName</strong></td>
+                <td>
+                  <span uk-icon="icon: mail; ratio: 0.8"></span>
+                  @u.Email
+                </td>
+                <td>
+                  @if (!string.IsNullOrEmpty(u.PhoneMobile))
+                  {
+                    <span uk-icon="icon: receiver; ratio: 0.8"></span>
+                    @u.PhoneMobile
+                  }
+                  else if (!string.IsNullOrEmpty(u.PhoneFixed))
+                  {
+                    <span uk-icon="icon: phone; ratio: 0.8"></span>
+                    @u.PhoneFixed
+                  }
+                  else
+                  {
+                    <span class="uk-text-muted">—</span>
+                  }
+                </td>
+                <td>
+                  @if (u.BirthDate.HasValue)
+                  {
+                    @u.BirthDate.Value.ToString("dd/MM/yyyy")
+                  }
+                  else
+                  {
+                    <span class="uk-text-muted">—</span>
+                  }
+                </td>
+                <td class="uk-text-center">
+                  <a class="uk-button uk-button-small uk-button-default" asp-page="Edit" asp-route-id="@u.Id">
+                    <span uk-icon="icon: pencil; ratio: 0.8"></span> Editar
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

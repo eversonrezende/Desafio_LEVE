@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema LEVE</title>
+
+    <!-- UIKit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.6/dist/css/uikit.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Desafio.Leve.Web.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+                <a class="uk-navbar-item uk-logo" asp-page="/Index">Sistema LEVE</a>
+            </div>
+
+            <div class="uk-navbar-center">
+                <ul class="uk-navbar-nav">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li><a asp-page="/Index"><span uk-icon="home"></span> Dashboard</a></li>
+                        @if (User.IsInRole("Gestor"))
+                        {
+                            <li><a asp-page="/Users/Index"><span uk-icon="users"></span> Usuários</a></li>
+                        }
+                        <li><a asp-page="/Tasks/Index"><span uk-icon="list"></span> Tarefas</a></li>
+                    }
+                </ul>
+            </div>
+
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li>
+                            <a href="#">
+                                <span uk-icon="user"></span> @User.Identity.Name
+                            </a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li>
+                                        <form method="post" asp-page="/Index" asp-page-handler="Logout">
+                                            <button type="submit" class="uk-button uk-button-text">
+                                                <span uk-icon="sign-out"></span> Sair
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a asp-page="/Account/Login" asp-area="Identity"><span uk-icon="sign-in"></span> Login</a></li>
+                    }
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="uk-container uk-container-large uk-margin-top">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="uk-section uk-section-muted uk-section-small uk-margin-large-top">
+        <div class="uk-container">
+            <div class="uk-text-center uk-text-muted">
+                <p>&copy; 2026 - Sistema LEVE - Gestão de Tarefas</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- UIKit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.6/dist/js/uikit-icons.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

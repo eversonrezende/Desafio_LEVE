@@ -1,0 +1,125 @@
+@page
+@model Desafio.Leve.Web.Pages.Users.CreateModel
+@{
+  ViewData["Title"] = "Criar Usuário";
+}
+
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-small">
+    <div class="uk-card uk-card-default uk-card-body">
+      <h1 class="uk-card-title uk-heading-medium">
+        <span uk-icon="icon: user; ratio: 1.5"></span> Criar Usuário
+      </h1>
+
+      <form method="post" enctype="multipart/form-data" class="uk-form-stacked">
+        <fieldset class="uk-fieldset">
+          <legend class="uk-legend">
+            <span uk-icon="icon: mail; ratio: 0.9"></span> Dados de Acesso
+          </legend>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="email">E-mail *</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="email" asp-for="Email" placeholder="usuario@exemplo.com" />
+              <span asp-validation-for="Email" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="password">Senha *</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="password" asp-for="Password" type="password" placeholder="Mínimo 6 caracteres" />
+              <span asp-validation-for="Password" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="role">Função (Role) *</label>
+            <div class="uk-form-controls">
+              <select class="uk-select" id="role" asp-for="SelectedRole" asp-items="Model.Roles">
+                <option value="">-- Selecione --</option>
+              </select>
+              <span class="uk-text-meta">Gestor pode criar usuários e tarefas. Subordinado apenas visualiza suas tarefas.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+          <legend class="uk-legend">
+            <span uk-icon="icon: user; ratio: 0.9"></span> Dados Pessoais
+          </legend>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="fullname">Nome completo *</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="fullname" asp-for="FullName" placeholder="Nome completo do usuário" />
+              <span asp-validation-for="FullName" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="birthdate">Data de nascimento</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="birthdate" type="date" asp-for="BirthDate" />
+              <span asp-validation-for="BirthDate" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="photo">Foto do perfil</label>
+            <div class="uk-form-controls">
+              <div uk-form-custom="target: true">
+                <input type="file" id="photo" asp-for="Photo" accept="image/*" />
+                <input class="uk-input" type="text" placeholder="Selecione uma imagem (JPG, PNG, GIF, BMP, WEBP - máx. 5MB)" disabled />
+              </div>
+              <span class="uk-text-meta">Formatos aceitos: JPG, PNG, GIF, BMP, WEBP (máximo 5MB)</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+          <legend class="uk-legend">
+            <span uk-icon="icon: location; ratio: 0.9"></span> Contato
+          </legend>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="phonefixed">Telefone fixo</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="phonefixed" asp-for="PhoneFixed" placeholder="(00) 0000-0000" />
+              <span asp-validation-for="PhoneFixed" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="phonemobile">Telefone móvel</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="phonemobile" asp-for="PhoneMobile" placeholder="(00) 00000-0000" />
+              <span asp-validation-for="PhoneMobile" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="address">Endereço completo</label>
+            <div class="uk-form-controls">
+              <textarea class="uk-textarea" id="address" asp-for="Address" rows="3" placeholder="Rua, número, complemento, bairro, cidade, estado"></textarea>
+              <span asp-validation-for="Address" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="uk-margin-medium-top">
+          <button class="uk-button uk-button-primary" type="submit">
+            <span uk-icon="icon: check; ratio: 0.9"></span> Criar Usuário
+          </button>
+          <a class="uk-button uk-button-default" asp-page="Index">
+            <span uk-icon="icon: close; ratio: 0.9"></span> Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

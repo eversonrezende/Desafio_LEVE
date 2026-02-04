@@ -77,15 +77,15 @@ cd Desafio_LEVE
 
 ### 2. Configure o banco de dados
 
-Edite `Desafio.Leve.Web/appsettings.Development.json` e ajuste a connection string:
+Use **User Secrets** para não expor credenciais no repositório:
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost,1433;Database=desafio_leve;User ID=sa;Password=SUA_SENHA;Trusted_Connection=False;TrustServerCertificate=True;"
-  }
-}
+```bash
+cd Desafio.Leve.Web
+dotnet user-secrets init
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=desafio_leve;User ID=sa;Password=SUA_SENHA;Trusted_Connection=False;TrustServerCertificate=True;"
 ```
+
+> Observação: o arquivo `appsettings.Development.json` contém apenas um placeholder (`Password=CHANGEME`).
 
 ### 3. Configure o SMTP (E-mail)
 

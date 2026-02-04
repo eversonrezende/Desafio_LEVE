@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Override UIKit label padding */
+.uk-label {
+  padding-right: 20px !important;
+}
+
+/* Custom navbar margins */
+.uk-navbar-container {
+  margin-left: 25px !important;
+  margin-right: 25px !important;
+}

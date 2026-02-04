@@ -169,7 +169,6 @@ namespace Desafio.Leve.Web.Pages.Users
         var subject = "Bem-vindo(a) — sua conta foi criada";
         var body = $"<p>Olá {user.FullName ?? user.UserName},</p>" +
                    $"<p>Sua conta foi criada com sucesso com o e-mail <strong>{user.Email}</strong> e a role <strong>{roleToAssign}</strong>.</p>" +
-                   "<p>Use suas credenciais para fazer login em: <a href=\"/Identity/Account/Login\">entrar</a>.</p>" +
                    "<p>Se você não solicitou esta conta, contate o administrador.</p>";
         try
         {

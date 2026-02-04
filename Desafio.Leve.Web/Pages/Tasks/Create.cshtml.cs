@@ -57,9 +57,10 @@ namespace Desafio.Leve.Web.Pages.Tasks
         if (assigned != null && !string.IsNullOrWhiteSpace(assigned.Email))
         {
           var subject = $"Nova tarefa atribuída: {TaskItem.Title}";
+          var dueDateFormatted = TaskItem.DueDate.ToString("dd/MM/yyyy");
           var body = $"<p>Olá {(string.IsNullOrEmpty(assigned.FullName) ? assigned.Email : assigned.FullName)},</p>" +
                      $"<p>Uma nova tarefa foi atribuída a você:</p>" +
-                     $"<ul><li><strong>Título:</strong> {TaskItem.Title}</li><li><strong>Descrição:</strong> {TaskItem.Description}</li><li><strong>Data limite:</strong> {TaskItem.DueDate:O}</li></ul>" +
+                     $"<ul><li><strong>Título:</strong> {TaskItem.Title}</li><li><strong>Descrição:</strong> {TaskItem.Description}</li><li><strong>Data limite:</strong> {dueDateFormatted}</li></ul>" +
                      $"<p>Acesse o sistema para mais detalhes.</p>";
           try
           {

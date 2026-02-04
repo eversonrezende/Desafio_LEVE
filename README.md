@@ -82,7 +82,7 @@ Edite `Desafio.Leve.Web/appsettings.Development.json` e ajuste a connection stri
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost,1433;Database=balta;User ID=sa;Password=SUA_SENHA;Trusted_Connection=False;TrustServerCertificate=True;"
+    "DefaultConnection": "Server=localhost,1433;Database=desafio_leve;User ID=sa;Password=SUA_SENHA;Trusted_Connection=False;TrustServerCertificate=True;"
   }
 }
 ```
@@ -141,10 +141,12 @@ Acesse: http://localhost:5179
 
 **Migrations aplicadas:**
 
-- `InitialCreate` - estrutura inicial
+- `InitialCreate` - estrutura inicial com Identity e Tasks
 - `MakeUserFieldsNullable` - campos de usuário anuláveis
 - `MakeFullNameNullable` - FullName anulável
 - `MakeTaskUserIdsNullable` - IDs de usuário em tarefas anuláveis
+- `AddCreatedByIdToUsers` - adiciona campo CreatedById para rastreamento de criação de usuários
+- `AddTaskUserNavigationProperties` - adiciona índices e foreign keys para relações entre Tasks e Users
 
 ## 🎨 Páginas e Recursos
 
@@ -156,6 +158,8 @@ Acesse: http://localhost:5179
 - Ícones UIKit para cada seção
 
 ### Usuários (/Users)
+
+- **Gestores**: visualizam apenas usuários subordinados que eles criaram
 
 - **Index**: Tabela com foto circular, nome, email, telefones, data de nascimento
 - **Create**: Formulário completo organizado em 3 seções:
@@ -170,9 +174,10 @@ Acesse: http://localhost:5179
 - **Index**: Tabela com status visual (labels coloridas Pendente/Concluída)
   - Filtros automáticos por role
   - Botão "Concluir" para tarefas pendentes
-- **Create**: Formulário com:
-  - Título, descrição (textarea expandido), data/hora limite
+- **Create**: Formulário com: limite (apenas data, sem hora)
   - Dropdown de subordinados para atribuição
+  - Validação de campos obrigatórios
+  - Conversão automática de timezone para São Paulo (UTC-3) na exibiçãoribuição
   - Validação de campos obrigatórios
 
 ## 🧪 Testes Manuais Recomendados

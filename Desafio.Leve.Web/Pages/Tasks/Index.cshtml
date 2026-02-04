@@ -18,6 +18,14 @@
       }
     </div>
 
+    @if (TempData["ErrorMessage"] != null)
+    {
+      <div class="uk-alert-danger" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p><span uk-icon="icon: warning; ratio: 0.9"></span> @TempData["ErrorMessage"]</p>
+      </div>
+    }
+
     @if (!Model.Tasks.Any())
     {
       <div class="uk-alert-warning" uk-alert>
@@ -61,10 +69,29 @@
                 <td>@t.Description</td>
                 <td>
                   <span uk-icon="icon: calendar; ratio: 0.8"></span>
-                  @t.DueDate.ToString("dd/MM/yyyy HH:mm")
+                  @{
+                    var saoPauloTimeZone = TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time");
+                    var localDueDate = TimeZoneInfo.ConvertTimeFromUtc(t.DueDate.ToUniversalTime(), saoPauloTimeZone);
+                  }
+                  @localDueDate.ToString("dd/MM/yyyy")
                 </td>
-                <td>@t.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>@t.AssignedToUserId</td>
+                <td>
+                  @{
+                    var localCreatedAt = TimeZoneInfo.ConvertTimeFromUtc(t.CreatedAt.ToUniversalTime(), saoPauloTimeZone);
+                  }
+                  @localCreatedAt.ToString("dd/MM/yyyy HH:mm")
+                </td>
+                <td>
+                  @if (!string.IsNullOrEmpty(t.AssignedToUserName))
+                  {
+                    <span uk-icon="icon: user; ratio: 0.8"></span>
+                    @t.AssignedToUserName
+                  }
+                  else
+                  {
+                    <span class="uk-text-muted">—</span>
+                  }
+                </td>
                 <td class="uk-text-center">
                   @if (!t.IsCompleted && User.Identity.IsAuthenticated)
                   {

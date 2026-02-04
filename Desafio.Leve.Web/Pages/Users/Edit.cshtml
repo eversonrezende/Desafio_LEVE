@@ -1,0 +1,114 @@
+@page "{id}"
+@model Desafio.Leve.Web.Pages.Users.EditModel
+@{
+  ViewData["Title"] = "Editar Usuário";
+}
+
+<div class="uk-section uk-section-default">
+  <div class="uk-container uk-container-small">
+    <div class="uk-card uk-card-default uk-card-body">
+      <h1 class="uk-card-title uk-heading-medium">
+        <span uk-icon="icon: pencil; ratio: 1.5"></span> Editar Usuário
+      </h1>
+
+      <form method="post" enctype="multipart/form-data" class="uk-form-stacked">
+        <fieldset class="uk-fieldset">
+          <legend class="uk-legend">
+            <span uk-icon="icon: mail; ratio: 0.9"></span> Dados de Acesso
+          </legend>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="email">E-mail *</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="email" asp-for="Email" readonly />
+              <span class="uk-text-meta">O e-mail não pode ser alterado</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+          <legend class="uk-legend">
+            <span uk-icon="icon: user; ratio: 0.9"></span> Dados Pessoais
+          </legend>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="fullname">Nome completo</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="fullname" asp-for="FullName" placeholder="Nome completo do usuário" />
+              <span asp-validation-for="FullName" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="birthdate">Data de nascimento</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="birthdate" type="date" asp-for="BirthDate" />
+              <span asp-validation-for="BirthDate" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="photo">Foto do perfil</label>
+            <div class="uk-form-controls">
+              @if (!string.IsNullOrEmpty(Model.CurrentPhotoPath))
+              {
+                <div class="uk-margin-small-bottom">
+                  <img src="@Model.CurrentPhotoPath" alt="Foto atual" class="uk-border-circle" width="80" height="80" />
+                </div>
+              }
+              <div uk-form-custom="target: true">
+                <input type="file" id="photo" asp-for="Photo" accept="image/*" />
+                <input class="uk-input" type="text" placeholder="Selecione uma nova imagem (opcional)" disabled />
+              </div>
+              <span class="uk-text-meta">Formatos aceitos: JPG, PNG, GIF, BMP, WEBP (máximo 5MB)</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="uk-fieldset uk-margin-medium-top">
+          <legend class="uk-legend">
+            <span uk-icon="icon: location; ratio: 0.9"></span> Contato
+          </legend>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="phonefixed">Telefone fixo</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="phonefixed" asp-for="PhoneFixed" placeholder="(00) 0000-0000" />
+              <span asp-validation-for="PhoneFixed" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="phonemobile">Telefone móvel</label>
+            <div class="uk-form-controls">
+              <input class="uk-input" id="phonemobile" asp-for="PhoneMobile" placeholder="(00) 00000-0000" />
+              <span asp-validation-for="PhoneMobile" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+
+          <div class="uk-margin">
+            <label class="uk-form-label" for="address">Endereço completo</label>
+            <div class="uk-form-controls">
+              <textarea class="uk-textarea" id="address" asp-for="Address" rows="3"
+                placeholder="Rua, número, complemento, bairro, cidade, estado"></textarea>
+              <span asp-validation-for="Address" class="uk-text-danger uk-text-small"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="uk-margin-medium-top">
+          <button class="uk-button uk-button-primary" type="submit">
+            <span uk-icon="icon: check; ratio: 0.9"></span> Salvar Alterações
+          </button>
+          <a class="uk-button uk-button-default" asp-page="Index">
+            <span uk-icon="icon: close; ratio: 0.9"></span> Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

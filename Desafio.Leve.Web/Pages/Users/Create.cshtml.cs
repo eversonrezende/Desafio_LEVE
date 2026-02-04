@@ -79,6 +79,8 @@ namespace Desafio.Leve.Web.Pages.Users
       if (!ModelState.IsValid)
         return Page();
 
+      var currentUserId = _userManager.GetUserId(User);
+
       var user = new ApplicationUser
       {
         UserName = Email,
@@ -87,7 +89,8 @@ namespace Desafio.Leve.Web.Pages.Users
         BirthDate = BirthDate,
         PhoneFixed = PhoneFixed,
         PhoneMobile = PhoneMobile,
-        Address = Address
+        Address = Address,
+        CreatedById = currentUserId
       };
       var result = await _userManager.CreateAsync(user, Password);
       if (!result.Succeeded)

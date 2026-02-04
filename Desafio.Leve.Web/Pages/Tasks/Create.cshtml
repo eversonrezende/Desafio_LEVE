@@ -35,11 +35,12 @@
 
         <div class="uk-margin">
           <label class="uk-form-label" for="duedate">
-            <span uk-icon="icon: calendar; ratio: 0.9"></span> Data e Hora Limite
+            <span uk-icon="icon: calendar; ratio: 0.9"></span> Data Limite
           </label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="duedate" type="datetime-local" asp-for="TaskItem.DueDate" />
+            <input class="uk-input" id="duedate" type="date" asp-for="TaskItem.DueDate" />
             <span asp-validation-for="TaskItem.DueDate" class="uk-text-danger uk-text-small"></span>
+            <span class="uk-text-meta">Selecione a data limite da tarefa</span>
           </div>
         </div>
 

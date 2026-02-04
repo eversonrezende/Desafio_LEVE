@@ -1,0 +1,18 @@
+@page
+@model LogoutModel
+@{
+  ViewData["Title"] = "Logout";
+}
+
+<div class="uk-section uk-section-muted uk-flex uk-flex-center uk-flex-middle" style="min-height: 100vh;">
+  <div class="uk-width-medium">
+    <div class="uk-card uk-card-default uk-card-body uk-box-shadow-large uk-text-center">
+      <span uk-icon="icon: sign-out; ratio: 3" class="uk-text-primary"></span>
+      <h1 class="uk-card-title uk-margin-top">@ViewData["Title"]</h1>
+      <p>Você foi desconectado com sucesso.</p>
+      <a href="/" class="uk-button uk-button-primary">
+        <span uk-icon="icon: home; ratio: 0.8"></span> Voltar ao início
+      </a>
+    </div>
+  </div>
+</div>

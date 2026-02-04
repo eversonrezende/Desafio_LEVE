@@ -11,5 +11,8 @@ namespace Desafio.Leve.Infrastructure.Identity
     public string? PhoneMobile { get; set; }
     public string? Address { get; set; }
     public string? PhotoPath { get; set; }
+
+    // ID do gestor que criou este usuário
+    public string? CreatedById { get; set; }
   }
 }

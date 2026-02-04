@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Desafio.Leve.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Desafio.Leve.Web.Pages.Users
 {
@@ -18,7 +20,12 @@ namespace Desafio.Leve.Web.Pages.Users
 
     public async Task OnGetAsync()
     {
-      Users = await Task.FromResult(_userManager.Users as IList<ApplicationUser> ?? new List<ApplicationUser>());
+      var currentUserId = _userManager.GetUserId(User);
+
+      // Mostra apenas usuários criados pelo gestor atual
+      Users = await _userManager.Users
+        .Where(u => u.CreatedById == currentUserId)
+        .ToListAsync();
     }
   }
 }

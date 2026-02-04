@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# Project specific files
+Desafio_Vaga_Desenvolvedor_LEVE_Investimentos.pdf
+
 # User-specific files
 *.rsuser
 *.suo

@@ -48,12 +48,12 @@ namespace Desafio.Leve.Web.Pages.Users
     [BindProperty]
     public IFormFile? Photo { get; set; }
 
-    [BindProperty]
+    [BindProperty, Required(ErrorMessage = "A função é obrigatória")]
     public string? SelectedRole { get; set; }
 
     public List<SelectListItem> Roles { get; set; } = new List<SelectListItem>();
 
-    public async Task OnGetAsync()
+    private async Task LoadRolesAsync()
     {
       // garantindo que as Roles existam
       var subordinateRole = "Subordinado";
@@ -74,12 +74,43 @@ namespace Desafio.Leve.Web.Pages.Users
       };
     }
 
+    public async Task OnGetAsync()
+    {
+      await LoadRolesAsync();
+    }
+
     public async Task<IActionResult> OnPostAsync()
     {
       if (!ModelState.IsValid)
+      {
+        await LoadRolesAsync();
         return Page();
+      }
 
       var currentUserId = _userManager.GetUserId(User);
+
+      // Validar foto ANTES de criar o usuário
+      if (Photo != null && Photo.Length > 0)
+      {
+        // Validando o tipo de arquivo (apenas imagens)
+        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
+        var extension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
+        if (string.IsNullOrEmpty(extension) || !allowedExtensions.Contains(extension))
+        {
+          ModelState.AddModelError(nameof(Photo), "Apenas arquivos de imagem são permitidos (jpg, jpeg, png, gif, bmp, webp).");
+          await LoadRolesAsync();
+          return Page();
+        }
+
+        // Validando o tamanho do arquivo (max 5MB)
+        const int maxFileSizeInBytes = 5 * 1024 * 1024;
+        if (Photo.Length > maxFileSizeInBytes)
+        {
+          ModelState.AddModelError(nameof(Photo), "O tamanho máximo permitido é 5 MB.");
+          await LoadRolesAsync();
+          return Page();
+        }
+      }
 
       var user = new ApplicationUser
       {
@@ -97,33 +128,18 @@ namespace Desafio.Leve.Web.Pages.Users
       {
         foreach (var e in result.Errors)
           ModelState.AddModelError(string.Empty, e.Description);
+        await LoadRolesAsync();
         return Page();
       }
 
       if (Photo != null && Photo.Length > 0)
       {
-        // Validando o tipo de arquivo (apenas imagens)
-        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
-        var extension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
-        if (string.IsNullOrEmpty(extension) || !allowedExtensions.Contains(extension))
-        {
-          ModelState.AddModelError(nameof(Photo), "Apenas arquivos de imagem são permitidos (jpg, jpeg, png, gif, bmp, webp).");
-          return Page();
-        }
-
-        // Validando o tamanho do arquivo (max 5MB)
-        const int maxFileSizeInBytes = 5 * 1024 * 1024;
-        if (Photo.Length > maxFileSizeInBytes)
-        {
-          ModelState.AddModelError(nameof(Photo), "O tamanho máximo permitido é 5 MB.");
-          return Page();
-        }
-
         // Remover caracteres do path e gerar nome único
         var sanitizedFileName = Path.GetFileNameWithoutExtension(Photo.FileName)
             .Replace("..", "")
             .Replace("/", "")
             .Replace("\\", "");
+        var extension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
         var uniqueFileName = $"{Guid.NewGuid()}_{sanitizedFileName}{extension}";
 
         var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", user.Id);
@@ -136,6 +152,7 @@ namespace Desafio.Leve.Web.Pages.Users
         if (!fullFilePath.StartsWith(fullUploadsPath))
         {
           ModelState.AddModelError(nameof(Photo), "Nome de arquivo inválido.");
+          await LoadRolesAsync();
           return Page();
         }
 

@@ -5,6 +5,7 @@ using Desafio.Leve.Domain.Models;
 using Desafio.Leve.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -41,6 +42,23 @@ namespace Desafio.Leve.Web.Pages.Tasks
       }
 
       var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+      if (string.IsNullOrWhiteSpace(userId) || !await _db.Users.AnyAsync(u => u.Id == userId))
+      {
+        _logger.LogWarning("Usuário autenticado não encontrado no banco ao criar tarefa. Forçando novo login.");
+        await HttpContext.SignOutAsync();
+        return RedirectToPage("/Account/Login", new { area = "Identity" });
+      }
+
+      if (!string.IsNullOrWhiteSpace(TaskItem.AssignedToUserId))
+      {
+        var assignedExists = await _db.Users.AnyAsync(u => u.Id == TaskItem.AssignedToUserId);
+        if (!assignedExists)
+        {
+          ModelState.AddModelError(nameof(TaskItem.AssignedToUserId), "Usuário atribuído inválido.");
+          await LoadUsersAsync();
+          return Page();
+        }
+      }
       TaskItem.CreatedAt = DateTime.UtcNow;
       TaskItem.IsCompleted = false;
       TaskItem.CreatedByUserId = userId;

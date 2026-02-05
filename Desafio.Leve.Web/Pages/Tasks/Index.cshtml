@@ -26,6 +26,14 @@
       </div>
     }
 
+    @if (TempData["SuccessMessage"] != null)
+    {
+      <div class="uk-alert-success" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p><span uk-icon="icon: check; ratio: 0.9"></span> @TempData["SuccessMessage"]</p>
+      </div>
+    }
+
     @if (!Model.Tasks.Any())
     {
       <div class="uk-alert-warning" uk-alert>
@@ -101,6 +109,16 @@
                         <span uk-icon="icon: check; ratio: 0.8"></span> Concluir
                       </button>
                     </form>
+                    @if (User.IsInRole("Gestor"))
+                    {
+                      <form method="post" asp-page-handler="Delete" class="uk-display-inline">
+                        <input type="hidden" name="id" value="@t.Id" />
+                        <button class="uk-button uk-button-small uk-button-danger" type="submit"
+                                onclick="return confirm('Excluir esta tarefa?')">
+                          <span uk-icon="icon: trash; ratio: 0.8"></span> Excluir
+                        </button>
+                      </form>
+                    }
                   }
                   else
                   {

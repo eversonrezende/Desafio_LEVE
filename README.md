@@ -233,7 +233,6 @@ Acesse: <http://localhost:5179>
 - Tente acessar `/Users/Create` como Subordinado (deve retornar Forbidden)
 - Tente desativar/ativar usuário de outro gestor (deve retornar Forbidden)
 - Tente deletar tarefa que não criou (deve mostrar mensagem de erro)
-- Tente deletar tarefa já concluída (deve mostrar mensagem de erro)
 - Upload de arquivo > 5MB (deve ser rejeitado com mensagem)
 - Upload de arquivo .exe ou .pdf (deve ser rejeitado)
 - Criar tarefa sem campos obrigatórios (validação inline deve impedir submit)

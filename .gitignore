@@ -45,6 +45,7 @@ bld/
 
 # User uploaded files
 wwwroot/uploads/
+!wwwroot/uploads/.gitkeep
 
 # Visual Studio 2017 auto generated files
 Generated\ Files/

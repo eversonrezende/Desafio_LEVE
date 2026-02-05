@@ -13,8 +13,6 @@ Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pa
 - ✅ Upload de foto com validação robusta:
   - Tipos permitidos: jpg, jpeg, png, gif, bmp, webp
   - Tamanho máximo: 5MB
-  - Sanitização de nomes de arquivo com GUID único
-  - Proteção contra path traversal
 - ✅ Listagem de usuários com foto, dados de contato e data de nascimento
 - ✅ Página protegida por role (apenas Gestor pode criar/gerenciar usuários)
 
@@ -34,20 +32,18 @@ Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pa
 - ✅ E-mail de boas-vindas ao criar usuário
 - ✅ E-mail de notificação ao atribuir tarefa ao subordinado
 - ✅ E-mail ao gestor quando subordinado conclui tarefa
-- ✅ Tratamento de erros com logging (falhas de e-mail não bloqueiam operações)
 - ✅ Integração com MailKit para SMTP confiável
 
 ### Interface do Usuário (UIKit)
 
 - ✅ Framework CSS UIKit v3.21.6 integrado globalmente
-- ✅ Layout responsivo com navbar moderna
+- ✅ Layout responsivo com navbar
 - ✅ Dashboard com cards interativos e grid responsivo
 - ✅ Formulários organizados com fieldsets e ícones
 - ✅ Tabelas estilizadas com striped rows e hover effects
 - ✅ Labels e botões com ícones UIKit
 - ✅ Alertas e mensagens de feedback visual
 - ✅ Upload de foto customizado com UIKit form-custom
-- ✅ Design mobile-first e totalmente responsivo
 
 ## 🏗️ Arquitetura
 
@@ -58,7 +54,7 @@ Desafio.Leve.sln
 └── Desafio.Leve.Infrastructure  # EF Core, Identity, serviços (Email)
 ```
 
-**Nota**: O projeto Application foi removido por não estar sendo utilizado. A lógica de aplicação está implementada diretamente nas Razor Pages e serviços da camada Infrastructure.
+**Nota**: A lógica de aplicação está implementada diretamente nas Razor Pages e serviços da camada Infrastructure.
 
 ## 📋 Pré-requisitos
 
@@ -122,13 +118,7 @@ Isso criará as tabelas e aplicará o seed do usuário gestor inicial.
 dotnet run
 ```
 
-Acesse: http://localhost:5179
-
-## 🔐 Credenciais Padrão
-
-- **E-mail**: ti@leveinvestimentos.com.br
-- **Senha**: teste123
-- **Role**: Gestor
+Acesse: <http://localhost:5179>
 
 ## 📂 Estrutura do Banco de Dados
 
@@ -172,12 +162,11 @@ Acesse: http://localhost:5179
 ### Tarefas (/Tasks)
 
 - **Index**: Tabela com status visual (labels coloridas Pendente/Concluída)
-  - Filtros automáticos por role
   - Botão "Concluir" para tarefas pendentes
 - **Create**: Formulário com: limite (apenas data, sem hora)
   - Dropdown de subordinados para atribuição
   - Validação de campos obrigatórios
-  - Conversão automática de timezone para São Paulo (UTC-3) na exibiçãoribuição
+  - Conversão automática de timezone para São Paulo (UTC-3) na exibição
   - Validação de campos obrigatórios
 
 ## 🧪 Testes Manuais Recomendados
@@ -205,11 +194,6 @@ Acesse: http://localhost:5179
    - Clique em "Concluir" na tarefa
    - Verifique e-mail do gestor sobre conclusão
 
-5. **Verificar Responsividade**
-   - Teste em mobile (menu hamburger)
-   - Redimensione janela para ver grid adaptativo
-   - Verifique tabelas responsivas
-
 ### Testes de Segurança
 
 - Tente acessar `/Users/Create` como Subordinado (deve retornar Forbidden)
@@ -233,9 +217,8 @@ Acesse: http://localhost:5179
 
 - **Uploads**: Salvos em `wwwroot/uploads/{userId}/` com nome sanitizado (GUID + extensão)
 - **Validação de upload**:
-  - Whitelist de extensões permitidas (jpg, jpeg, png, gif, bmp, webp)
+  - Extensões permitidas (jpg, jpeg, png, gif, bmp, webp)
   - Limite de 5MB por arquivo
-  - Verificação de path traversal
   - Geração de nome único para evitar conflitos
 
 ### E-mail e Logging
@@ -244,7 +227,7 @@ Acesse: http://localhost:5179
 - Roles (Gestor/Subordinado) são criadas automaticamente na inicialização
 - Seed do usuário gestor ocorre automaticamente no startup
 
-### Interface e UX
+### Interface
 
 - UIKit framework via CDN para melhor performance
 - Ícones UIKit integrados em toda interface
@@ -253,21 +236,6 @@ Acesse: http://localhost:5179
 - Navegação responsiva com menu mobile
 - Design consistente em todas as páginas
 - Validações client-side via `_ValidationScriptsPartial`
-
-## 🚧 Melhorias Futuras
-
-- [ ] Editar perfil de usuário
-- [ ] Alterar senha
-- [ ] Dashboard com estatísticas de tarefas
-- [ ] Filtros avançados e busca de tarefas
-- [ ] Paginação nas listagens
-- [ ] Comentários em tarefas
-- [ ] Anexos em tarefas
-- [ ] Notificações em tempo real (SignalR)
-- [ ] Histórico de alterações
-- [ ] Testes unitários e de integração
-- [ ] Docker Compose para ambiente completo
-- [ ] CI/CD pipeline
 
 ## 👨‍💻 Desenvolvimento
 
@@ -338,4 +306,4 @@ Este projeto foi desenvolvido como parte de um desafio técnico para demonstraç
 - Upload e validação de arquivos
 - UIKit CSS framework
 - Autorização baseada em roles
-- Boas práticas de segurança e logging
+- Boas práticas de segurança

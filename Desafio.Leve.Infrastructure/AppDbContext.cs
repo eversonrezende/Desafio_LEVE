@@ -16,8 +16,6 @@ namespace Desafio.Leve.Infrastructure
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
-
-      // Domain `TaskItem` holds user IDs only; any additional configuration can be added here.
     }
   }
 }

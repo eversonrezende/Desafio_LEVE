@@ -41,7 +41,7 @@ public class LoginModel : PageModel
 
   public async Task OnGetAsync(string? returnUrl = null)
   {
-    // Clear the existing external cookie to ensure a clean login process
+    // Limpa o cookie externo existente para garantir um processo de login limpo.
     await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
     ReturnUrl = returnUrl;
@@ -53,13 +53,13 @@ public class LoginModel : PageModel
 
     if (ModelState.IsValid)
     {
-      // This doesn't count login failures towards account lockout
-      // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+      // Isso não contabiliza falhas de login para o bloqueio da conta.
+      // Para permitir que erros de senha acionem o bloqueio da conta, defina lockoutOnFailure: true
       var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
       if (result.Succeeded)
       {
-        _logger.LogInformation("User logged in.");
+        _logger.LogInformation("Usuário logado.");
         return LocalRedirect(returnUrl);
       }
       if (result.RequiresTwoFactor)
@@ -68,7 +68,7 @@ public class LoginModel : PageModel
       }
       if (result.IsLockedOut)
       {
-        _logger.LogWarning("User account locked out.");
+        _logger.LogWarning("Conta bloqueada.");
         return RedirectToPage("./Lockout");
       }
       else
@@ -78,7 +78,6 @@ public class LoginModel : PageModel
       }
     }
 
-    // If we got this far, something failed, redisplay form
     return Page();
   }
 }

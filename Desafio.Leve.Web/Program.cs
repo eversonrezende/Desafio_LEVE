@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adicionar serviços ao contêiner.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -20,13 +20,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 builder.Services.AddRazorPages();
 
-// Configure email sender
+// Configurar remetente de e-mail
 builder.Services.Configure<Desafio.Leve.Infrastructure.Services.EmailOptions>(builder.Configuration.GetSection("Smtp"));
 builder.Services.AddTransient<Desafio.Leve.Infrastructure.Services.IEmailSender, Desafio.Leve.Infrastructure.Services.MailKitEmailSender>();
 
 var app = builder.Build();
 
-// Apply migrations and seed default user
+// Aplicar migrações e definir usuário padrão.
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -35,7 +35,7 @@ using (var scope = app.Services.CreateScope())
     await SeedDefaultUserAsync(services);
 }
 
-// Configure the HTTP request pipeline.
+// Configure o pipeline de requisição HTTP..
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

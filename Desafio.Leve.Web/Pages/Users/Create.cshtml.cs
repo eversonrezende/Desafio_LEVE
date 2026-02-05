@@ -55,7 +55,7 @@ namespace Desafio.Leve.Web.Pages.Users
 
     public async Task OnGetAsync()
     {
-      // ensure roles exist
+      // garantindo que as Roles existam
       var subordinateRole = "Subordinado";
       var gestorRole = "Gestor";
       if (!await _roleManager.RoleExistsAsync(subordinateRole))
@@ -102,7 +102,7 @@ namespace Desafio.Leve.Web.Pages.Users
 
       if (Photo != null && Photo.Length > 0)
       {
-        // Validate file type (only images)
+        // Validando o tipo de arquivo (apenas imagens)
         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
         var extension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
         if (string.IsNullOrEmpty(extension) || !allowedExtensions.Contains(extension))
@@ -111,7 +111,7 @@ namespace Desafio.Leve.Web.Pages.Users
           return Page();
         }
 
-        // Validate file size (max 5MB)
+        // Validando o tamanho do arquivo (max 5MB)
         const int maxFileSizeInBytes = 5 * 1024 * 1024;
         if (Photo.Length > maxFileSizeInBytes)
         {
@@ -119,7 +119,7 @@ namespace Desafio.Leve.Web.Pages.Users
           return Page();
         }
 
-        // Sanitize filename: remove path characters and generate unique name
+        // Remover caracteres do path e gerar nome único
         var sanitizedFileName = Path.GetFileNameWithoutExtension(Photo.FileName)
             .Replace("..", "")
             .Replace("/", "")
@@ -130,7 +130,7 @@ namespace Desafio.Leve.Web.Pages.Users
         Directory.CreateDirectory(uploads);
         var filePath = Path.Combine(uploads, uniqueFileName);
 
-        // Ensure the final path is within the uploads directory (prevent path traversal)
+        // Certifique-se de que o path final esteja dentro do diretório de uploads (evite a travessia de diretórios).
         var fullUploadsPath = Path.GetFullPath(uploads);
         var fullFilePath = Path.GetFullPath(filePath);
         if (!fullFilePath.StartsWith(fullUploadsPath))
@@ -147,10 +147,10 @@ namespace Desafio.Leve.Web.Pages.Users
         await _userManager.UpdateAsync(user);
       }
 
-      // Determine role to assign (default to Subordinado)
+      // Determine a Role a ser atribuída (o padrão é Subordinado).
       var roleToAssign = string.IsNullOrWhiteSpace(SelectedRole) ? "Subordinado" : SelectedRole;
 
-      // Only allow assigning Gestor if the current user is in the Gestor role
+      // Permitir a atribuição de Gestor somente se o usuário atual tiver a função de Gestor.
       if (roleToAssign == "Gestor" && !User.IsInRole("Gestor"))
       {
         roleToAssign = "Subordinado";
@@ -163,7 +163,7 @@ namespace Desafio.Leve.Web.Pages.Users
 
       await _userManager.AddToRoleAsync(user, roleToAssign);
 
-      // Send a welcome/notification email (do not include the password)
+      // Enviar um e-mail de boas-vindas/notificação (não incluir a senha).
       if (!string.IsNullOrWhiteSpace(user.Email))
       {
         var subject = "Bem-vindo(a) — sua conta foi criada";

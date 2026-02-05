@@ -100,7 +100,7 @@ namespace Desafio.Leve.Web.Pages.Users
       // Processa upload de foto, se fornecida
       if (Photo != null && Photo.Length > 0)
       {
-        // Validate file type (only images)
+        // Validar tipo de arquivo (somente imagens)
         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
         var extension = Path.GetExtension(Photo.FileName).ToLowerInvariant();
         if (string.IsNullOrEmpty(extension) || !allowedExtensions.Contains(extension))
@@ -110,7 +110,7 @@ namespace Desafio.Leve.Web.Pages.Users
           return Page();
         }
 
-        // Validate file size (max 5MB)
+        // Validar tamanho do arquivo (máximo 5 MB)
         const int maxFileSizeInBytes = 5 * 1024 * 1024;
         if (Photo.Length > maxFileSizeInBytes)
         {
@@ -119,7 +119,7 @@ namespace Desafio.Leve.Web.Pages.Users
           return Page();
         }
 
-        // Sanitize filename: remove path characters and generate unique name
+        // Remover caracteres do caminho e gerar nome único
         var sanitizedFileName = Path.GetFileNameWithoutExtension(Photo.FileName)
             .Replace("..", "")
             .Replace("/", "")
@@ -130,7 +130,7 @@ namespace Desafio.Leve.Web.Pages.Users
         Directory.CreateDirectory(uploads);
         var filePath = Path.Combine(uploads, uniqueFileName);
 
-        // Ensure the final path is within the uploads directory (prevent path traversal)
+        // Certifique-se de que o caminho final esteja dentro do diretório de uploads (evite a travessia de diretórios).
         var fullUploadsPath = Path.GetFullPath(uploads);
         var fullFilePath = Path.GetFullPath(filePath);
         if (!fullFilePath.StartsWith(fullUploadsPath))
@@ -140,7 +140,7 @@ namespace Desafio.Leve.Web.Pages.Users
           return Page();
         }
 
-        // Delete old photo if exists
+        // Apague a foto antiga, se existir.
         if (!string.IsNullOrEmpty(user.PhotoPath))
         {
           var oldPhotoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", user.PhotoPath.TrimStart('/'));

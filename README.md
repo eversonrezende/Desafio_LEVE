@@ -14,6 +14,10 @@ Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pa
   - Tipos permitidos: jpg, jpeg, png, gif, bmp, webp
   - Tamanho máximo: 5MB
 - ✅ Listagem de usuários com foto, dados de contato e data de nascimento
+- ✅ **Status de usuário (Ativo/Inativo)**:
+  - Gestores podem desativar/ativar usuários que criaram
+  - Indicador visual (badge) no status do usuário
+  - Confirmação antes de desativar
 - ✅ Página protegida por role (apenas Gestor pode criar/gerenciar usuários)
 
 ### Gestão de Tarefas
@@ -21,6 +25,11 @@ Sistema de gestão de tarefas e usuários desenvolvido com ASP.NET Core Razor Pa
 - ✅ Gestores criam tarefas com título, descrição e data/hora limite
 - ✅ Atribuição de tarefas a subordinados via dropdown
 - ✅ Subordinados podem marcar tarefas como concluídas
+- ✅ **Exclusão de tarefas não concluídas**:
+  - Apenas gestores podem deletar tarefas
+  - Apenas o criador da tarefa pode deletá-la
+  - Apenas tarefas pendentes podem ser deletadas
+  - Confirmação antes de excluir
 - ✅ Visibilidade baseada em role:
   - **Gestor**: vê tarefas que criou ou foram atribuídas a si
   - **Subordinado**: vê apenas tarefas atribuídas a si
@@ -137,6 +146,7 @@ Acesse: <http://localhost:5179>
 - `MakeTaskUserIdsNullable` - IDs de usuário em tarefas anuláveis
 - `AddCreatedByIdToUsers` - adiciona campo CreatedById para rastreamento de criação de usuários
 - `AddTaskUserNavigationProperties` - adiciona índices e foreign keys para relações entre Tasks e Users
+- `AddIsActiveToUsers` - adiciona campo IsActive para controle de status de usuários
 
 ## 🎨 Páginas e Recursos
 
@@ -151,9 +161,13 @@ Acesse: <http://localhost:5179>
 
 - **Gestores**: visualizam apenas usuários subordinados que eles criaram
 
-- **Index**: Tabela com foto circular, nome, email, telefones, data de nascimento
+- **Index**: Tabela com foto circular, nome, email, telefones, data de nascimento e status (Ativo/Inativo)
+  - Botão "Editar" para modificar dados do usuário
+  - Botão "Desativar" (para usuários ativos) - com confirmação
+  - Botão "Ativar" (para usuários inativos)
+  - Indicadores visuais com labels coloridas (verde para Ativo, vermelho para Inativo)
 - **Create**: Formulário completo organizado em 3 seções:
-  - **Acesso**: Email, senha, role
+  - **Acesso**: Email, senha, role (obrigatório)
   - **Pessoais**: Nome, data nascimento, foto
   - **Contato**: Telefones (fixo/móvel), endereço
   - Upload de foto customizado com UIKit form-custom
@@ -162,10 +176,13 @@ Acesse: <http://localhost:5179>
 ### Tarefas (/Tasks)
 
 - **Index**: Tabela com status visual (labels coloridas Pendente/Concluída)
-  - Botão "Concluir" para tarefas pendentes
+  - Botão "Concluir" para tarefas pendentes (apenas para responsável)
+  - Botão "Excluir" para tarefas pendentes (apenas para criador/gestor)
+  - Mensagens de sucesso e erro com alertas visuais
 - **Create**: Formulário com: limite (apenas data, sem hora)
   - Dropdown de subordinados para atribuição
   - Validação de campos obrigatórios
+  - Validação de existência de usuário (previne FK violations)
   - Conversão automática de timezone para São Paulo (UTC-3) na exibição
   - Validação de campos obrigatórios
 
@@ -180,26 +197,47 @@ Acesse: <http://localhost:5179>
 2. **Criar Subordinado**
    - Acesse `/Users/Create`
    - Preencha todos os campos (incluindo foto)
-   - Selecione role "Subordinado"
+   - Selecione role "Subordinado" (obrigatório)
+   - Verifique role dropdown permanece após erros de validação
    - Verifique e-mail de boas-vindas
 
-3. **Criar Tarefa**
+3. **Ativar/Desativar Usuário**
+   - Acesse `/Users/Index`
+   - Clique em "Desativar" para um usuário ativo
+   - Confirme a ação
+   - Verifique status muda para "Inativo" (badge vermelho)
+   - Clique em "Ativar" para reativar
+   - Verifique status volta para "Ativo" (badge verde)
+
+4. **Criar Tarefa**
    - Acesse `/Tasks/Create`
    - Atribua ao subordinado criado
    - Verifique e-mail de notificação do subordinado
 
-4. **Concluir Tarefa como Subordinado**
+5. **Excluir Tarefa Pendente**
+   - Acesse `/Tasks/Index`
+   - Clique em "Excluir" em uma tarefa pendente
+   - Confirme a ação
+   - Verifique mensagem de sucesso "Tarefa excluída com sucesso"
+   - Verifique tarefa foi removida da lista
+
+6. **Concluir Tarefa como Subordinado**
    - Logout e login com o subordinado
    - Acesse `/Tasks/Index`
    - Clique em "Concluir" na tarefa
    - Verifique e-mail do gestor sobre conclusão
+   - Verifique botão "Excluir" desaparece (tarefa concluída não pode ser deletada)
 
 ### Testes de Segurança
 
 - Tente acessar `/Users/Create` como Subordinado (deve retornar Forbidden)
+- Tente desativar/ativar usuário de outro gestor (deve retornar Forbidden)
+- Tente deletar tarefa que não criou (deve mostrar mensagem de erro)
+- Tente deletar tarefa já concluída (deve mostrar mensagem de erro)
 - Upload de arquivo > 5MB (deve ser rejeitado com mensagem)
 - Upload de arquivo .exe ou .pdf (deve ser rejeitado)
 - Criar tarefa sem campos obrigatórios (validação inline deve impedir submit)
+- Criar usuário sem selecionar função (validação deve mostrar erro)
 
 ## 🛠️ Tecnologias
 
@@ -220,12 +258,19 @@ Acesse: <http://localhost:5179>
   - Extensões permitidas (jpg, jpeg, png, gif, bmp, webp)
   - Limite de 5MB por arquivo
   - Geração de nome único para evitar conflitos
+  - Validação ANTES de criar usuário (evita usuários órfãos)
+- **Status de usuário**: Campo `IsActive` booleano com padrão true
+- **Exclusão de tarefas**:
+  - Apenas tarefas pendentes podem ser deletadas
+  - Apenas o criador pode deletar sua tarefa
+  - Apenas gestores têm permissão de delete
 
 ### E-mail e Logging
 
 - E-mails falhos são logados com `ILogger` mas não bloqueiam operações
 - Roles (Gestor/Subordinado) são criadas automaticamente na inicialização
 - Seed do usuário gestor ocorre automaticamente no startup
+- Notificações por e-mail: boas-vindas, atribuição de tarefa, conclusão de tarefa
 
 ### Interface
 

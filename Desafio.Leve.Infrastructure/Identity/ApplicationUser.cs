@@ -14,5 +14,8 @@ namespace Desafio.Leve.Infrastructure.Identity
 
     // ID do gestor que criou este usuário
     public string? CreatedById { get; set; }
+
+    // Status do usuário (ativo/inativo)
+    public bool IsActive { get; set; } = true;
   }
 }

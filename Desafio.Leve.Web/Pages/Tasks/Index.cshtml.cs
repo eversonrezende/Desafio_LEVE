@@ -94,5 +94,39 @@ namespace Desafio.Leve.Web.Pages.Tasks
 
       return RedirectToPage();
     }
+
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
+    {
+      var task = await _db.Tasks.FindAsync(id);
+      if (task == null) return NotFound();
+
+      // Apenas gestores podem deletar tarefas
+      if (!User.IsInRole("Gestor"))
+      {
+        TempData["ErrorMessage"] = "Acesso negado. Apenas gestores podem excluir tarefas.";
+        return RedirectToPage();
+      }
+
+      // Apenas tarefas não concluídas podem ser deletadas
+      if (task.IsCompleted)
+      {
+        TempData["ErrorMessage"] = "Não é possível excluir tarefas concluídas.";
+        return RedirectToPage();
+      }
+
+      // Apenas o criador da tarefa pode deletá-la
+      var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      if (task.CreatedByUserId != userId)
+      {
+        TempData["ErrorMessage"] = "Acesso negado. Apenas o criador da tarefa pode excluí-la.";
+        return RedirectToPage();
+      }
+
+      _db.Tasks.Remove(task);
+      await _db.SaveChangesAsync();
+
+      TempData["SuccessMessage"] = "Tarefa excluída com sucesso.";
+      return RedirectToPage();
+    }
   }
 }

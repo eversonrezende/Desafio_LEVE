@@ -32,6 +32,7 @@
               <th>Email</th>
               <th>Telefone</th>
               <th>Data Nascimento</th>
+              <th class="uk-table-shrink">Status</th>
               <th class="uk-text-center">Ações</th>
             </tr>
           </thead>
@@ -80,10 +81,43 @@
                     <span class="uk-text-muted">—</span>
                   }
                 </td>
+                <td>
+                  @if (u.IsActive)
+                  {
+                    <span class="uk-label uk-label-success">
+                      <span uk-icon="icon: check; ratio: 0.8"></span> Ativo
+                    </span>
+                  }
+                  else
+                  {
+                    <span class="uk-label uk-label-danger">
+                      <span uk-icon="icon: ban; ratio: 0.8"></span> Inativo
+                    </span>
+                  }
+                </td>
                 <td class="uk-text-center">
                   <a class="uk-button uk-button-small uk-button-default" asp-page="Edit" asp-route-id="@u.Id">
                     <span uk-icon="icon: pencil; ratio: 0.8"></span> Editar
                   </a>
+                  @if (u.IsActive)
+                  {
+                    <form method="post" asp-page-handler="Deactivate" class="uk-display-inline">
+                      <input type="hidden" name="id" value="@u.Id" />
+                      <button class="uk-button uk-button-small uk-button-warning" type="submit"
+                              onclick="return confirm('Desativar este usuário?')">
+                        <span uk-icon="icon: ban; ratio: 0.8"></span> Desativar
+                      </button>
+                    </form>
+                  }
+                  else
+                  {
+                    <form method="post" asp-page-handler="Activate" class="uk-display-inline">
+                      <input type="hidden" name="id" value="@u.Id" />
+                      <button class="uk-button uk-button-small uk-button-success" type="submit">
+                        <span uk-icon="icon: check; ratio: 0.8"></span> Ativar
+                      </button>
+                    </form>
+                  }
                 </td>
               </tr>
             }
